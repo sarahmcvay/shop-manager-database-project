@@ -21,27 +21,27 @@ As a shop manager
 
 ## STEP 2: Set Out Tables 
 
-### Table 1: items
-| Column  | Type     | Notes    |
-|---------|----------|----------|
-| id      | SERIAL | Primary key |
-| item | TEXT | Descriptive name of the item |
-| price   | DECIMAL | Pounds and pence |
-| quantity | INT | Number of items in stock |
-
-### Table 2: orders
+### Table 1: orders
 | Column  | Type     | Notes    |
 |---------|----------|----------|
 | id      | SERIAL | Primary key |
 | customer | TEXT | Customer name |
 | date   | DATE | Order date |
 
+### Table 2: items
+| Column  | Type     | Notes    |
+|---------|----------|----------|
+| id      | SERIAL | Primary key |
+| description | TEXT | Descriptive name of the item being sold |
+| price   | DECIMAL | Pounds and pence |
+| quantity | INT | Number of items in stock |
+
 ### Join table: items_orders
 | Column  | Type     | Notes    |
 |---------|----------|----------|
-| item_id  | INT | Foreign key -> items(id) |
-| order_id | INT | Foreign key -> orders(id)|
-| quantity | INT | Number of items in the order |
+| order_id | INT | Foreign key -> orders(id)| 
+| unit_id  | INT | Foreign key -> items(id) |
+| quantity | INT | Number of units in the order |
 
 ## STEP 2: Write SQL
 
@@ -50,18 +50,17 @@ DROP TABLE IF EXISTS "items_orders";
 DROP TABLE IF EXISTS "orders";
 DROP TABLE IF EXISTS "items";
 
-CREATE TABLE items (
-  id SERIAL PRIMARY KEY,
-  item TEXT,
-  price DECIMAL(10,2),
-  quantity INT 
-);
-
-DROP TABLE IF EXISTS "orders";
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   customer TEXT,
   date DATE
+);
+
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  unit TEXT,
+  price DECIMAL(10,2),
+  quantity INT 
 );
 
 CREATE TABLE items_orders (
@@ -77,7 +76,13 @@ CREATE TABLE items_orders (
 ```
 ## STEP 3: Seed data 
 ```sql
-INSERT INTO items (item, price, quantity) VALUES 
+INSERT INTO orders (customer, date) VALUES 
+    ('piggy', '2025-12-24'),
+    ('kermit', '2025-12-18'),
+    ('camilla', '2025-11-17'),
+    ('fozzie', '2025-11-13');
+
+INSERT INTO items (discription, price, quantity) VALUES 
     ('high heels', 80.00, 8),
     ('lipstick', 50.00, 28),
     ('mascara', 30.50, 40),
@@ -89,27 +94,61 @@ INSERT INTO items (item, price, quantity) VALUES
     ('nail polish', 15.50, 46),
     ('hairbrush', 80.00, 2);
 
-INSERT INTO orders (customer, date) VALUES 
-    ('piggy', '2025-12-24'),
-    ('kermit', '2025-12-18'),
-    ('camilla', '2025-11-17'),
-    ('fozzie', '2025-11-13');
-
-INSERT INTO items_orders (item_id, order_id, quantity) VALUES
-(1, 1, 5), -- piggy, 5 high heels
-(2, 1, 3), -- piggy, 3 lipstick
-(6, 2, 1), -- kermit, 1 diamond ring
-(7, 2, 1), -- kermit, 1 necklace
-(8, 2, 1), -- kermit, 1 handbag
-(3, 3, 2), -- camilla, 2 mascara
-(4, 3, 1), -- camilla, 1 eyelash curler
-(9, 3, 2), -- camilla, 2 nail polish
-(10, 4, 2), -- fozzie, 2 hairbrush 
-(5, 4, 6); -- fozzie, 6 bow ties 
+INSERT INTO items_orders (order_id, item_id, quantity) VALUES
+(1, 1, 5), -- piggy, high heels x 5
+(1, 2, 3), -- piggy, lipstick x 3
+(2, 6, 1), -- kermit, diamond ring x 1
+(2, 7, 1), -- kermit, necklace x 1
+(2, 8, 1), -- kermit, handbag x 1
+(3, 3, 2), -- camilla, mascara x 2
+(3, 4, 1), -- camilla, eyelash curler x 1
+(3, 9, 2), -- camilla, nail polish x 2
+(4, 10, 2), -- fozzie, hairbrush x 2
+(4, 5, 6); -- fozzie, bow ties x 6
 
 ```
 ## STEP 4: Create the tables
 ```bash
-psql shop_manager < shop_manager.sql
+psql shop_manager < seeds/shop_manager.sql
 ```
 
+## STEP 5: Methods for user functionality 
+```python
+class OrderRepository: 
+    def __init__(): 
+        pass 
+    def all(): 
+        pass 
+    def find():
+        pass 
+    def create(): 
+        pass 
+
+class Order:
+    def __init__(): 
+        pass
+    def __eq__():
+        pass
+    def __rep__(): 
+        pass 
+
+class ItemRepository: 
+    def __init__(): 
+        pass 
+    def all(): 
+        pass
+    def find(): 
+        pass 
+    def create(): 
+        pass 
+
+class Item: 
+    def __init__(): 
+        pass 
+    def __eq__(): 
+        pass
+    def __repr__(): 
+        pass 
+
+
+```
