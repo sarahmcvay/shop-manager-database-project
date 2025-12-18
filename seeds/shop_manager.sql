@@ -1,15 +1,18 @@
 DROP TABLE IF EXISTS "items_orders";
+-- DROP SEQUENCE IF EXISTS items_orders_id_seq;
 DROP TABLE IF EXISTS "orders";
+DROP SEQUENCE IF EXISTS orders_id_seq;
 DROP TABLE IF EXISTS "items";
+-- DROP SEQUENCE IF EXISTS items_id_seq;
 
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
-    item TEXT,
+    descript TEXT,
     price DECIMAL(10,2),
     quantity INT 
 );
 
-DROP TABLE IF EXISTS "orders";
+CREATE SEQUENCE IF NOT EXISTS orders_id_seq;
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     customer TEXT,
@@ -28,7 +31,13 @@ CREATE TABLE items_orders (
 );
 
 -- seed data
-INSERT INTO items (item, price, quantity) VALUES 
+INSERT INTO orders (customer, date) VALUES 
+    ('piggy', '2025-12-24'),
+    ('kermit', '2025-12-18'),
+    ('camilla', '2025-11-17'),
+    ('fozzie', '2025-11-13');
+
+INSERT INTO items (descript, price, quantity) VALUES 
     ('high heels', 80.00, 8),
     ('lipstick', 50.00, 28),
     ('mascara', 30.50, 40),
@@ -40,20 +49,14 @@ INSERT INTO items (item, price, quantity) VALUES
     ('nail polish', 15.50, 46),
     ('hairbrush', 80.00, 2);
 
-INSERT INTO orders (customer, date) VALUES 
-    ('piggy', '2025-12-24'),
-    ('kermit', '2025-12-18'),
-    ('camilla', '2025-11-17'),
-    ('fozzie', '2025-11-13');
-
-INSERT INTO items_orders (item_id, order_id, quantity) VALUES
-(1, 1, 5), -- piggy, 5 high heels
-(2, 1, 3), -- piggy, 3 lipstick
-(6, 2, 1), -- kermit, 1 diamond ring
-(7, 2, 1), -- kermit, 1 necklace
-(8, 2, 1), -- kermit, 1 handbag
-(3, 3, 2), -- camilla, 2 mascara
-(4, 3, 1), -- camilla, 1 eyelash curler
-(9, 3, 2), -- camilla, 2 nail polish
-(10, 4, 2), -- fozzie, 2 hairbrush 
-(5, 4, 6); -- fozzie, 6 bow ties 
+INSERT INTO items_orders (order_id, item_id, quantity) VALUES
+(1, 1, 5), -- piggy, high heels x 5
+(1, 2, 3), -- piggy, lipstick x 3
+(2, 6, 1), -- kermit, diamond ring x 1
+(2, 7, 1), -- kermit, necklace x 1
+(2, 8, 1), -- kermit, handbag x 1
+(3, 3, 2), -- camilla, mascara x 2
+(3, 4, 1), -- camilla, eyelash curler x 1
+(3, 9, 2), -- camilla, nail polish x 2
+(4, 10, 2), -- fozzie, hairbrush x 2
+(4, 5, 6); -- fozzie, bow ties x 6
