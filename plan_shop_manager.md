@@ -9,7 +9,7 @@ As a shop manager
 -  I want to be able to create a new item.
 3) So I can know which orders were made:
 - I want to keep a list of orders with their customer name.
-- I want to assign each order to their corresponding item. 
+- I want to assign each order to their corresponding item(s). 
 - I want to know on which date an order was placed. 
 4) So I can manage orders:
 - I want to be able to create a new order.
@@ -27,21 +27,26 @@ As a shop manager
 | id      | SERIAL | Primary key |
 | customer | TEXT | Customer name |
 | date   | DATE | Order date |
+The order, knows the customer and the date.  
+It can expose which items belong to it via the repository. 
 
 ### Table 2: items
 | Column  | Type     | Notes    |
 |---------|----------|----------|
 | id      | SERIAL | Primary key |
-| description | TEXT | Descriptive name of the item being sold |
+| descript | TEXT | Descriptive name of the item being sold |
 | price   | DECIMAL | Pounds and pence |
 | quantity | INT | Number of items in stock |
+The item, knows the name, price and stock quantity. 
 
-### Join table: items_orders
+### Join table: orders_items
 | Column  | Type     | Notes    |
 |---------|----------|----------|
 | order_id | INT | Foreign key -> orders(id)| 
 | unit_id  | INT | Foreign key -> items(id) |
 | quantity | INT | Number of units in the order |
+OrderItem represents one item in one order. 
+It knows the item and the quantity ordered
 
 ## STEP 2: Write SQL
 
@@ -80,7 +85,8 @@ INSERT INTO orders (customer, date) VALUES
     ('piggy', '2025-12-24'),
     ('kermit', '2025-12-18'),
     ('camilla', '2025-11-17'),
-    ('fozzie', '2025-11-13');
+    ('fozzie', '2025-11-13'), 
+    ('gonzo', '2025-12-19');
 
 INSERT INTO items (discription, price, quantity) VALUES 
     ('high heels', 80.00, 8),
@@ -104,7 +110,8 @@ INSERT INTO items_orders (order_id, item_id, quantity) VALUES
 (3, 4, 1), -- camilla, eyelash curler x 1
 (3, 9, 2), -- camilla, nail polish x 2
 (4, 10, 2), -- fozzie, hairbrush x 2
-(4, 5, 6); -- fozzie, bow ties x 6
+(4, 5, 6), -- fozzie, bow ties x 6
+(5, 1, 1); -- gonzo, high heels x 1
 
 ```
 ## STEP 4: Create the tables
@@ -115,12 +122,27 @@ psql shop_manager < seeds/shop_manager.sql
 ## STEP 5: Methods for user functionality 
 ```python
 class OrderRepository: 
-    def __init__(): 
+# responsible for 
+# 1) Fetching orders. 
+# 2) Fetching an order with its items 
+    def __init__(self, connection): 
+        # Parameters: connection
+        # Side effects: Sets the database connection
         pass 
-    def all(): 
+    def all(self): 
+        # Parameters: none
+        # Returns: list of all orders
+        # Side-effects: none
         pass 
-    def find():
+    def find(self, order_id):
+        # Parameters: order_id
+        # Returns: correspodning order information
+        # Side-effects: none
         pass 
+    def link(self, order_id)
+        # Parameters: order_id
+        # Returns: item information for that order. 
+        # Side-effects: none
     def create(): 
         pass 
 
@@ -133,6 +155,9 @@ class Order:
         pass 
 
 class ItemRepository: 
+# responsible for 
+# 1) Fetching items. 
+# 2) Fetching items by orders 
     def __init__(): 
         pass 
     def all(): 
