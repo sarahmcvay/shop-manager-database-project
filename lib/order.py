@@ -1,8 +1,8 @@
 
 class Order: 
-    def __init__(self, customer, order_date):
+    def __init__(self, customer, date):
         self.customer = customer
-        self.order_date = order_date
+        self.date = date
 
     def __eq__(self, other):
         # return self.__dict__ == other.__dict__
@@ -10,5 +10,5 @@ class Order:
             return False 
         return (
             self.customer == other.customer and
-            self.order_date == other.order_date
+            self.date == other.date
         )
