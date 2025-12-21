@@ -35,7 +35,8 @@ INSERT INTO orders (customer, date) VALUES
     ('piggy', '2025-12-24'),
     ('kermit', '2025-12-18'),
     ('camilla', '2025-11-17'),
-    ('fozzie', '2025-11-13');
+    ('fozzie', '2025-11-13'),
+    ('gonzo', '2025-12-19');                                
 
 INSERT INTO items (descript, price, quantity) VALUES 
     ('high heels', 80.00, 8),
@@ -59,4 +60,5 @@ INSERT INTO items_orders (order_id, item_id, quantity) VALUES
 (3, 4, 1), -- camilla, eyelash curler x 1
 (3, 9, 2), -- camilla, nail polish x 2
 (4, 10, 2), -- fozzie, hairbrush x 2
-(4, 5, 6); -- fozzie, bow ties x 6
+(4, 5, 6), -- fozzie, bow ties x 6
+(5, 1, 1); -- gonzo, high heels x 1
