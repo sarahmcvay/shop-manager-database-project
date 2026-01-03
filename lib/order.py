@@ -12,3 +12,6 @@ class Order:
             self.customer == other.customer and
             self.date == other.date
         )
+
+    def __repr__(self):
+        return f"Order Information:{self.customer}, {self.date}"

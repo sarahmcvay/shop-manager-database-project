@@ -139,7 +139,7 @@ class OrderRepository:
         # Returns: correspodning order information
         # Side-effects: none
         pass 
-    def link(self, order_id)
+    def find_items_in_order(self, order_id)
         # Parameters: order_id
         # Returns: item information for that order. 
         # Side-effects: none

@@ -14,3 +14,6 @@ class Item:
             self.price == other.price and
             self.quantity == other.quantity
         ) 
+    
+    def __repr__(self):
+        return f"Album({self.title}, {self.release_year}, {self.artist_id})"
