@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "items_orders";
+DROP TABLE IF EXISTS "orders_items";
 -- DROP SEQUENCE IF EXISTS items_orders_id_seq;
 DROP TABLE IF EXISTS "orders";
 DROP SEQUENCE IF EXISTS orders_id_seq;
@@ -19,7 +19,7 @@ CREATE TABLE orders (
     date DATE
 );
 
-CREATE TABLE items_orders (
+CREATE TABLE orders_items (
     item_id INT NOT NULL,
     order_id INT NOT NULL,
     quantity INT NOT NULL,
@@ -46,11 +46,11 @@ INSERT INTO items (descript, price, quantity) VALUES
     ('bow tie', 30.00, 12),
     ('diamond ring', 1000.00, 3),
     ('necklace', 500.00, 7),
-    ('handbag', 750.00, 9),
+    ('banjo', 750.00, 9),
     ('nail polish', 15.50, 46),
     ('hairbrush', 80.00, 2);
 
-INSERT INTO items_orders (order_id, item_id, quantity) VALUES
+INSERT INTO orders_items (order_id, item_id, quantity) VALUES
 (1, 1, 5), -- piggy, high heels x 5
 (1, 2, 3), -- piggy, lipstick x 3
 (2, 6, 1), -- kermit, diamond ring x 1
