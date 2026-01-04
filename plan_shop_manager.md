@@ -100,7 +100,7 @@ INSERT INTO items (discription, price, quantity) VALUES
     ('nail polish', 15.50, 46),
     ('hairbrush', 80.00, 2);
 
-INSERT INTO items_orders (order_id, item_id, quantity) VALUES
+INSERT INTO orders_items (order_id, item_id, quantity) VALUES
 (1, 1, 5), -- piggy, high heels x 5
 (1, 2, 3), -- piggy, lipstick x 3
 (2, 6, 1), -- kermit, diamond ring x 1
