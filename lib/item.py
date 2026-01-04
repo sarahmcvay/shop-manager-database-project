@@ -16,4 +16,4 @@ class Item:
         ) 
     
     def __repr__(self):
-        return f"Album({self.title}, {self.release_year}, {self.artist_id})"
+        return f"Item({self.descript}, {self.price}, {self.quantity})"
