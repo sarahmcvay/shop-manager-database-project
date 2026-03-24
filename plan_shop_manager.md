@@ -48,7 +48,7 @@ The item, knows the name, price and stock quantity.
 OrderItem represents one item in one order. 
 It knows the item and the quantity ordered
 
-## STEP 2: Write SQL
+## STEP 3: Write SQL
 
 ```sql
 DROP TABLE IF EXISTS "items_orders";
@@ -79,7 +79,7 @@ CREATE TABLE items_orders (
   PRIMARY KEY (item_id, order_id)
 );
 ```
-## STEP 3: Seed data 
+## STEP 4: Seed data 
 ```sql
 INSERT INTO orders (customer, date) VALUES 
     ('piggy', '2025-12-24'),
@@ -114,12 +114,12 @@ INSERT INTO orders_items (order_id, item_id, quantity) VALUES
 (5, 1, 1); -- gonzo, high heels x 1
 
 ```
-## STEP 4: Create the tables
+## STEP 5: Seed the Database
 ```bash
 psql shop_manager < seeds/shop_manager.sql
 ```
 
-## STEP 5: Methods for user functionality 
+## STEP 6: Methods for user functionality 
 ```python
 class OrderRepository: 
 # responsible for 
